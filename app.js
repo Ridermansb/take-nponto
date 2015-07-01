@@ -15,7 +15,6 @@ var extractDay = function(itemText) {
     itemText = itemText.replace('/', '//');
     var hoursExtracted = /(.*)(Horas.*)/gmi.exec(itemText);
     if (hoursExtracted && hoursExtracted.length > 0) {
-        //console.log(idx + ": extract day from '%s'", hoursExtracted  )
         if (hoursExtracted[1].trim()) {
             return {
                 day: dayInfo.day,
@@ -37,8 +36,6 @@ new PdfReader().parseFileItems("sample.pdf", function(err, item) {
 
     itensPriors.push(item);
 
-    //console.log("-- process '%s'", item.text)
-
     if (isHour(item.text)) {
         dayInfo = {
             day: itensPriors[idx - 2].text,
@@ -48,7 +45,7 @@ new PdfReader().parseFileItems("sample.pdf", function(err, item) {
         var extractedDay = extractDay(item.text);
         if (extractedDay) {
             hours.push(extractedDay)
-            console.log(idx + ": %s", idx, extractedDay);
+            console.log(extractedDay);
         }
         dayInfo = undefined;
     }
