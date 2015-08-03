@@ -1,6 +1,5 @@
-
+var argv = require('yargs').argv;
 var PdfReader = require("pdfreader").PdfReader;
-var hours = [];
 var itensPriors = [];
 var dayInfo;
 var idx = 0;
@@ -9,29 +8,26 @@ var canStartProcess = false;
 var sumHours = function(start1, end1, start2, end2) {
     var diff1 = end1.diff(start1);
     var diff2 = end2.diff(start2);
-    return {
-        days: diff1.days + diff2.days,
-        hours: diff1.hours + diff2.hours,
-        minutes: diff1.minutes + diff2.minutes
-    };
+    var minutes = (diff1.hours + diff2.hours) * 60;
+    return minutes += diff1.minutes + diff2.minutes;
 }
 
 var isHour = function(text) {
     return text === "0013" || text === "0001";
 };
 
-var mapDate = function(month, day, year, hours) {
+var convertToDate = function(year, month, day, hours) {
     return hours.map(function(obj){
         return new Date(month + '/' + day + '/' + year + ' ' + obj);
     });
 }
 
-var extractDay = function(hoursText) {
+var extractDays = function(hoursText) {
     hoursText = hoursText.replace('/', '//').trim();
     var hoursExtracted = /(.*)(Horas.*)/gmi.exec(hoursText);
     if (hoursExtracted && hoursExtracted.length > 0) {
         hoursText = hoursExtracted[1].trim();
-        hoursList = mapDate(1, dayInfo.day, 2015, hoursText.split(' '));
+        hoursList = convertToDate(2015, 1, dayInfo.day, hoursText.split(' '));
         if (hoursText) {
             return {
                 day: dayInfo.day,
@@ -47,8 +43,11 @@ var extractDay = function(hoursText) {
     return undefined;
 };
 
-new PdfReader().parseFileItems("sample.pdf", function(err, item) {
-    if (!item || !item.text) return;
+var hours = [];
+new PdfReader().parseFileItems(argv._[0], function(err, item) {
+    if (!item) callback(hours);
+
+    if (!item.text) return;
     canStartProcess = canStartProcess ? canStartProcess : item.text === "Marcações";
     if (!canStartProcess) return;
 
@@ -60,10 +59,9 @@ new PdfReader().parseFileItems("sample.pdf", function(err, item) {
             dayMonth: itensPriors[idx - 1].text
         }
     } else if (dayInfo) {
-        var extractedDay = extractDay(item.text);
+        var extractedDay = extractDays(item.text);
         if (extractedDay) {
-            hours.push(extractedDay)
-            console.log("On day %s, you work %s:%s", extractedDay.day, extractedDay.totalWork.hours, extractedDay.totalWork.minutes);
+            hours.push(extractedDay);
         }
         dayInfo = undefined;
     }
@@ -113,3 +111,16 @@ new PdfReader().parseFileItems("sample.pdf", function(err, item) {
   Date.prototype.diff = function(date2) {
     return new DateDiff(this, date2);
   };
+
+var callback = function(hours) {
+  var totalMinutes = 0;
+  hours.forEach(function(it){
+    totalMinutes += it.totalWork
+    console.log("On day %s, you work %s:%s", it.day, Math.floor(it.totalWork / 60), Math.round(it.totalWork % 60));
+  });
+
+  var hoursWorked = Math.floor(totalMinutes / 60);
+  var minutesWorked = Math.round(totalMinutes % 60);
+
+  console.log("Total : %d:%d", hoursWorked, minutesWorked);
+}

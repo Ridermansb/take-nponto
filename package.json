@@ -9,6 +9,7 @@
   "author": "ridermansb",
   "license": "ISC",
   "dependencies": {
-    "pdfreader": "0.0.6"
+    "pdfreader": "0.0.6",
+    "yargs": "^3.17.1"
   }
 }
