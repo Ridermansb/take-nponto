@@ -43,7 +43,7 @@ var extractDays = function (hoursText) {
     var hoursExtracted = /(.*)(Horas.*)/gmi.exec(hoursText);
     if (hoursExtracted && hoursExtracted.length > 0) {
         hoursText = hoursExtracted[1].trim();
-        hoursList = convertToDate(2015, 1, dayInfo.day, hoursText.split(' '));
+        var hoursList = convertToDate(2015, 1, dayInfo.day, hoursText.split(' '));
         if (hoursText) {
             return {
                 day: dayInfo.day,
@@ -75,11 +75,12 @@ var callback = function (hours) {
 var hours = [];
 
 new PdfReader().parseFileItems(argv._[0], function (err, item) {
-    if (!item) callback(hours);
 
-    if (!item.text) return;
+    if (!item) { callback(hours); }
+    if (!item.text) { return; }
+
     canStartProcess = canStartProcess ? canStartProcess : item.text === "Marcações";
-    if (!canStartProcess) return;
+    if (!canStartProcess)  { return; }
 
     itemsPriors.push(item);
 
