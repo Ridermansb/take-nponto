@@ -1,18 +1,20 @@
 {
-    "name": "pdfGetStarter",
-    "version": "0.0.0",
-    "description": "",
-    "main": "app.js",
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
-    },
-    "author": "ridermansb",
-    "license": "ISC",
-    "dependencies": {
-        "pdfreader": "0.0.6",
-        "yargs": "^3.17.1"
-    },
-    "devDependencies": {
-        "jasmine-node": "^1.14.5"
-    }
+  "name": "pdfGetStarter",
+  "version": "0.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "ridermansb",
+  "license": "ISC",
+  "dependencies": {
+    "pdfreader": "0.0.6",
+    "yargs": "^3.17.1"
+  },
+  "devDependencies": {
+    "chai": "^3.2.0",
+    "jasmine": "^2.3.2",
+    "jasmine-node": "^1.14.5"
+  }
 }

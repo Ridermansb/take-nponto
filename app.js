@@ -5,24 +5,24 @@ var dayInfo;
 var idx = 0;
 var canStartProcess = false;
 
-var sumHours = function(start1, end1, start2, end2) {
+var sumHours = function (start1, end1, start2, end2) {
     let diff1 = end1.diff(start1);
     let diff2 = end2.diff(start2);
     let minutes = (diff1.hours + diff2.hours) * 60;
     return minutes + diff1.minutes + diff2.minutes;
 };
 
-var isHour = function(text) {
+var isHour = function (text) {
     return text === "0013" || text === "0001";
 };
 
-var convertToDate = function(year, month, day, hours) {
-    return hours.map(function(obj){
+var convertToDate = function (year, month, day, hours) {
+    return hours.map(function (obj) {
         return new Date(month + '/' + day + '/' + year + ' ' + obj);
     });
 };
 
-var extractDays = function(hoursText) {
+var extractDays = function (hoursText) {
     hoursText = hoursText.replace('/', '//').trim();
     var hoursExtracted = /(.*)(Horas.*)/gmi.exec(hoursText);
     if (hoursExtracted && hoursExtracted.length > 0) {
@@ -44,7 +44,7 @@ var extractDays = function(hoursText) {
 };
 
 var hours = [];
-new PdfReader().parseFileItems(argv._[0], function(err, item) {
+new PdfReader().parseFileItems(argv._[0], function (err, item) {
     if (!item) callback(hours);
 
     if (!item.text) return;
@@ -69,7 +69,7 @@ new PdfReader().parseFileItems(argv._[0], function(err, item) {
     idx++;
 });
 
- function DateDiff(date1, date2) {
+function DateDiff(date1, date2) {
     this.days = null;
     this.hours = null;
     this.minutes = null;
@@ -78,17 +78,17 @@ new PdfReader().parseFileItems(argv._[0], function(err, item) {
     this.date2 = date2;
 
     this.init();
-  }
+}
 
-  DateDiff.prototype.init = function() {
+DateDiff.prototype.init = function () {
     var data = new DateMeasure(this.date1 - this.date2);
     this.days = data.days;
     this.hours = data.hours;
     this.minutes = data.minutes;
     this.seconds = data.seconds;
-  };
+};
 
-  function DateMeasure(ms) {
+function DateMeasure(ms) {
     var d, h, m, s;
     s = Math.floor(ms / 1000);
     m = Math.floor(s / 60);
@@ -102,25 +102,25 @@ new PdfReader().parseFileItems(argv._[0], function(err, item) {
     this.hours = h;
     this.minutes = m;
     this.seconds = s;
-  };
+};
 
-  Date.diff = function(date1, date2) {
+Date.diff = function (date1, date2) {
     return new DateDiff(date1, date2);
-  };
+};
 
-  Date.prototype.diff = function(date2) {
+Date.prototype.diff = function (date2) {
     return new DateDiff(this, date2);
-  };
+};
 
-var callback = function(hours) {
-  var totalMinutes = 0;
-  hours.forEach(function(it){
-    totalMinutes += it.totalWork
-    console.log("On day %s, you work %s:%s", it.day, Math.floor(it.totalWork / 60), Math.round(it.totalWork % 60));
-  });
+var callback = function (hours) {
+    var totalMinutes = 0;
+    hours.forEach(function (it) {
+        totalMinutes += it.totalWork
+        console.log("On day %s, you work %s:%s", it.day, Math.floor(it.totalWork / 60), Math.round(it.totalWork % 60));
+    });
 
-  var hoursWorked = Math.floor(totalMinutes / 60);
-  var minutesWorked = Math.round(totalMinutes % 60);
+    var hoursWorked = Math.floor(totalMinutes / 60);
+    var minutesWorked = Math.round(totalMinutes % 60);
 
-  console.log("Total : %d:%d", hoursWorked, minutesWorked);
+    console.log("Total : %d:%d", hoursWorked, minutesWorked);
 }
