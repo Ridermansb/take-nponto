@@ -81,7 +81,7 @@ new PdfReader().parseFileItems(argv._[0], function (err, item) {
     if (!item) { callback(hours); }
     if (!item.text) { return; }
 
-    canStartProcess = canStartProcess ? canStartProcess : item.text === 'MarcaÃÂÃÂ§ÃÂÃÂµes';
+    canStartProcess = canStartProcess ? canStartProcess : item.text === 'MarcaÃÂÃÂÃÂÃÂ§ÃÂÃÂÃÂÃÂµes';
     if (!canStartProcess)  { return; }
 
     itemsPriors.push(item);
