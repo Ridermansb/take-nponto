@@ -4,11 +4,12 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-      "lint": "./node_modules/.bin/eslint . || true"
+    "lint": "./node_modules/.bin/eslint . || true"
   },
   "author": "ridermansb",
   "license": "ISC",
   "dependencies": {
+    "commander": "^2.9.0",
     "pdfreader": "0.1.4",
     "yargs": "^3.31.0"
   },

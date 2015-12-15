@@ -1,7 +1,22 @@
 
 // HACK: Use IIFE
 
-var argv = require('yargs').argv;
+var program = require('commander');
+
+program
+  .version('0.0.1')
+  //.option('-p, --peppers', 'Add peppers')
+  //.option('-P, --pineapple', 'Add pineapple')
+  //.option('-b, --bbq-sauce', 'Add bbq sauce')
+  .option('-f, --file [type]', 'File to process [file.pdf]', 'file.pdf')
+  .parse(process.argv);
+
+//console.log('you ordered a pizza with:');
+//if (program.peppers) console.log('  - peppers');
+//if (program.pineapple) console.log('  - pineapple');
+//if (program.bbqSauce) console.log('  - bbq');
+console.log('  - %s processing...', program.file);
+
 var PdfReader = require('pdfreader').PdfReader;
 var itemsPriors = [];
 var dayInfo;
@@ -78,7 +93,7 @@ var callback = function (hours) {
 var hours = [];
 
 // TODO: Use a static function
-new PdfReader().parseFileItems(argv._[0], function (err, item) {
+new PdfReader().parseFileItems(program.file, function (err, item) {
 
     if (!item) { callback(hours); }
     if (!item.text) { return; }
