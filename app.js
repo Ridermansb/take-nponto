@@ -1,6 +1,6 @@
 // HACK: Use IIFE
 var argv = require('yargs').argv;
-var PdfReader = require("pdfreader").PdfReader;
+var PdfReader = require('pdfreader').PdfReader;
 var itemsPriors = [];
 var dayInfo;
 var idx = 0;
@@ -30,7 +30,7 @@ var sumHours = function (start1, end1, start2, end2) {
 };
 
 var isHour = function (text) {
-    return text === "0013" || text === "0001";
+    return text === '0013' || text === '0001';
 };
 
 var convertToDate = function (year, month, day, hours) {
@@ -54,7 +54,7 @@ var extractDays = function (hoursText) {
             };
         }
     } else {
-        console.log("Hours not extracted from '%s'", hoursText);
+        console.log('Hours not extracted from "%s"', hoursText);
     }
 
     return undefined;
@@ -64,13 +64,13 @@ var callback = function (hours) {
     var totalMinutes = 0;
     hours.forEach(function (it) {
         totalMinutes += it.totalWork;
-        console.log("On day %s, you work %s:%s", it.day, Math.floor(it.totalWork / 60), Math.round(it.totalWork % 60));
+        console.log('On day %s, you work %s:%s', it.day, Math.floor(it.totalWork / 60), Math.round(it.totalWork % 60));
     });
 
     var hoursWorked = Math.floor(totalMinutes / 60);
     var minutesWorked = Math.round(totalMinutes % 60);
 
-    console.log("Total : %d:%d", hoursWorked, minutesWorked);
+    console.log('Total : %d:%d', hoursWorked, minutesWorked);
 };
 
 var hours = [];
@@ -81,7 +81,7 @@ new PdfReader().parseFileItems(argv._[0], function (err, item) {
     if (!item) { callback(hours); }
     if (!item.text) { return; }
 
-    canStartProcess = canStartProcess ? canStartProcess : item.text === "MarcaÃ§Ãµes";
+    canStartProcess = canStartProcess ? canStartProcess : item.text === 'MarcaÃÂÃÂ§ÃÂÃÂµes';
     if (!canStartProcess)  { return; }
 
     itemsPriors.push(item);

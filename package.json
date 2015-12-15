@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+      "lint": "./node_modules/.bin/eslint . || true"
   },
   "author": "ridermansb",
   "license": "ISC",
@@ -14,6 +14,7 @@
   },
   "devDependencies": {
     "chai": "^3.4.1",
+    "eslint": "^1.10.3",
     "jasmine": "^2.4.1",
     "jasmine-node": "^1.14.5"
   }
