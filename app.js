@@ -1,3 +1,4 @@
+// HACK: Use IIFE
 var argv = require('yargs').argv;
 var PdfReader = require("pdfreader").PdfReader;
 var itemsPriors = [];
@@ -74,12 +75,13 @@ var callback = function (hours) {
 
 var hours = [];
 
+// TODO: Use a static function
 new PdfReader().parseFileItems(argv._[0], function (err, item) {
 
     if (!item) { callback(hours); }
     if (!item.text) { return; }
 
-    canStartProcess = canStartProcess ? canStartProcess : item.text === "Marcações";
+    canStartProcess = canStartProcess ? canStartProcess : item.text === "MarcaÃ§Ãµes";
     if (!canStartProcess)  { return; }
 
     itemsPriors.push(item);
