@@ -1,4 +1,6 @@
+
 // HACK: Use IIFE
+
 var argv = require('yargs').argv;
 var PdfReader = require('pdfreader').PdfReader;
 var itemsPriors = [];

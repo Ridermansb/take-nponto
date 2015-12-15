@@ -4,7 +4,8 @@ module.exports = {
         'quotes': [2, 'single'],
         'linebreak-style': [2, 'unix'],
         'semi': [2, 'always'],
-        'comma-style': [2, 'last']
+        'comma-style': [2, 'last'],
+        'no-console': 0
     },
     'env': {
         'node': true
