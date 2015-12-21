@@ -6,7 +6,7 @@
     "lint": "./node_modules/.bin/eslint . || true",
     "commit": "./node_modules/.bin/git-cz",
     "test": "./node_modules/.bin/mocha -w",
-    "test:single": "./node_modules/.bin/mocha",
+    "test:single": "./node_modules/.bin/istanbul cover -x *Test.* ./node_modules/.bin/_mocha -- -R spec",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "author": "ridermansb",
@@ -22,6 +22,7 @@
     "eslint": "^1.10.3",
     "eslint-plugin-mocha": "^1.1.0",
     "ghooks": "^1.0.1",
+    "istanbul": "^0.4.1",
     "mocha": "^2.3.4",
     "semantic-release": "^4.3.5"
   },
