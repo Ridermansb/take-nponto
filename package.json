@@ -1,10 +1,12 @@
 {
-  "name": "pdfGetStarter",
-  "version": "0.0.0",
-  "description": "",
+  "name": "take-nponto",
+  "description": "Read pdf files and report hours stats",
   "main": "app.js",
   "scripts": {
-    "lint": "./node_modules/.bin/eslint . || true"
+    "lint": "./node_modules/.bin/eslint . || true",
+    "commit": "./node_modules/.bin/git-cz",
+    "test": "./node_modules/.bin/mocha",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "author": "ridermansb",
   "license": "ISC",
@@ -15,8 +17,20 @@
   },
   "devDependencies": {
     "chai": "^3.4.1",
+    "cz-conventional-changelog": "^1.1.5",
     "eslint": "^1.10.3",
-    "jasmine": "^2.4.1",
-    "jasmine-node": "^1.14.5"
+    "eslint-plugin-mocha": "^1.1.0",
+    "ghooks": "^1.0.1",
+    "mocha": "^2.3.4",
+    "semantic-release": "^4.3.5"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Ridermansb/take-nponto.git"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }

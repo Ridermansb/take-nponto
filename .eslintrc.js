@@ -7,6 +7,9 @@ module.exports = {
         'comma-style': [2, 'last'],
         'no-console': 0
     },
+    'plugins': [
+        'mocha'
+    ],
     'env': {
         'node': true
     },
