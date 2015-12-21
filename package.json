@@ -5,7 +5,8 @@
   "scripts": {
     "lint": "./node_modules/.bin/eslint . || true",
     "commit": "./node_modules/.bin/git-cz",
-    "test": "./node_modules/.bin/mocha",
+    "test": "./node_modules/.bin/mocha -w",
+    "test:single": "./node_modules/.bin/mocha",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "author": "ridermansb",
@@ -31,6 +32,9 @@
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
+    },
+    "ghooks": {
+      "pre-commit": "npm run test:single"
     }
   }
 }
