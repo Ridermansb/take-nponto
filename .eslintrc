@@ -1,4 +1,4 @@
-module.exports = {
+{
     'rules': {
         'indent': [2, 4],
         'quotes': [2, 'single'],
@@ -14,4 +14,4 @@ module.exports = {
         'node': true
     },
     'extends': 'eslint:recommended'
-};
+}

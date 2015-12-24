@@ -1,23 +1,12 @@
-
-// HACK: Use IIFE
-
 var program = require('commander');
+var PdfReader = require('pdfreader').PdfReader;
 
-program
-  .version('0.0.1')
-  //.option('-p, --peppers', 'Add peppers')
-  //.option('-P, --pineapple', 'Add pineapple')
-  //.option('-b, --bbq-sauce', 'Add bbq sauce')
+program.version('0.0.1')
   .option('-f, --file [type]', 'File to process [file.pdf]', 'file.pdf')
   .parse(process.argv);
 
-//console.log('you ordered a pizza with:');
-//if (program.peppers) console.log('  - peppers');
-//if (program.pineapple) console.log('  - pineapple');
-//if (program.bbqSauce) console.log('  - bbq');
 console.log('  - %s processing...', program.file);
 
-var PdfReader = require('pdfreader').PdfReader;
 var itemsPriors = [];
 var dayInfo;
 var idx = 0;
@@ -92,32 +81,34 @@ var callback = function (hours) {
 
 var hours = [];
 
-// TODO: Use a static function
-new PdfReader().parseFileItems(program.file, function (err, item) {
+function processFile() {
+    // TODO: Use a static function
+    new PdfReader().parseFileItems(program.file, function (err, item) {
 
-    if (!item) { callback(hours); }
-    if (!item.text) { return; }
+        if (!item) { callback(hours); }
+        if (!item.text) { return; }
 
-    canStartProcess = canStartProcess ? canStartProcess : item.text === 'MarcaÃÂÃÂÃÂÃÂ§ÃÂÃÂÃÂÃÂµes';
-    if (!canStartProcess)  { return; }
+        canStartProcess = canStartProcess ? canStartProcess : item.text === 'MarcaÃÂÃÂÃÂÃÂ§ÃÂÃÂÃÂÃÂµes';
+        if (!canStartProcess)  { return; }
 
-    itemsPriors.push(item);
+        itemsPriors.push(item);
 
-    if (isHour(item.text)) {
-        dayInfo = {
-            day: itemsPriors[idx - 2].text,
-            dayMonth: itemsPriors[idx - 1].text
-        };
-    } else if (dayInfo) {
-        var extractedDay = extractDays(item.text);
-        if (extractedDay) {
-            hours.push(extractedDay);
+        if (isHour(item.text)) {
+            dayInfo = {
+                day: itemsPriors[idx - 2].text,
+                dayMonth: itemsPriors[idx - 1].text
+            };
+        } else if (dayInfo) {
+            var extractedDay = extractDays(item.text);
+            if (extractedDay) {
+                hours.push(extractedDay);
+            }
+            dayInfo = undefined;
         }
-        dayInfo = undefined;
-    }
 
-    idx++;
-});
+        idx++;
+    });
+}
 
 function DateDiff(date1, date2) {
     this.days = null;
@@ -145,3 +136,5 @@ Date.diff = function (date1, date2) {
 Date.prototype.diff = function (date2) {
     return new DateDiff(this, date2);
 };
+
+module.exports = processFile;

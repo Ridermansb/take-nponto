@@ -1,10 +1,14 @@
 /* eslint-env node, mocha */
 
-var chai = require('chai');
-var should = chai.should();
+var nponto = require('../src/app');
+require('chai').should();
 
-describe('Should work', function () {
-    it('this test', function () {
-        true.should.be.ok;
+describe('take-nponto', function() {
+    it('should export', function() {
+        nponto.should.exist;
+    });
+
+    it('should export a function', function() {
+        nponto.should.to.be.a('function');
     });
 });
