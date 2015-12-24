@@ -12,8 +12,10 @@ before_install:
 before_script:
   - npm prune
 script:
+  - npm run lint
   - npm run test:single
-  - npm run check-coverage
+  - npm run test:check-coverage
+  - npm run test:upload-coverage
 after_success:
   - npm run semantic-release
 branches:

@@ -1,7 +1,9 @@
 /* eslint-env node, mocha */
 
 var nponto = require('../src/app');
-require('chai').should();
+var chai = require('chai');
+chai.should();
+var expect = chai.expect;
 
 describe('take-nponto', function() {
     it('should export', function() {

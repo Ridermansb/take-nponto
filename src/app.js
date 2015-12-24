@@ -82,13 +82,12 @@ var callback = function (hours) {
 var hours = [];
 
 function processFile() {
-    // TODO: Use a static function
     new PdfReader().parseFileItems(program.file, function (err, item) {
 
         if (!item) { callback(hours); }
         if (!item.text) { return; }
 
-        canStartProcess = canStartProcess ? canStartProcess : item.text === 'MarcaÃÂÃÂÃÂÃÂ§ÃÂÃÂÃÂÃÂµes';
+        canStartProcess = canStartProcess ? canStartProcess : item.text === 'Marces';
         if (!canStartProcess)  { return; }
 
         itemsPriors.push(item);
