@@ -13,4 +13,8 @@ describe('take-nponto', function() {
     it('should export a function', function() {
         nponto.should.to.be.a('function');
     });
+
+    it('when call with missing pdf should return a error', function() {
+        // expect(nponto(undefined)).to.throw('Ops error!');
+    });
 });
