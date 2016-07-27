@@ -1,7 +1,7 @@
 {
   "name": "take-nponto",
   "description": "Read pdf files and report hours stats",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "main": "app.js",
   "scripts": {
     "lint": "./node_modules/.bin/eslint . || true",
